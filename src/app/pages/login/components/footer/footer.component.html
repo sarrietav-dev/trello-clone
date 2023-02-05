@@ -1,0 +1,16 @@
+<footer>
+  <div class="mx-auto w-40">
+    <img
+      class="h-auto w-full"
+      src="../../../assets/images/logo/logo-atlassian-gray.png"
+      alt=""
+    />
+  </div>
+  <ul class="flex flex-wrap justify-center space-x-3">
+    <li *ngFor="let link of this.links">
+      <a class="text-sm font-thin text-gray-600" [href]="link.url">{{
+        link.text
+      }}</a>
+    </li>
+  </ul>
+</footer>

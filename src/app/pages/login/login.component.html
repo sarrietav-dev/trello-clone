@@ -1,1 +1,49 @@
-
+<div class="mx-auto w-52">
+  <img
+    class="h-auto w-full"
+    src="/assets/images/logo/logo-gradient-blue-trello.png"
+    alt="Trello logo"
+  />
+</div>
+<div>
+  <p class="text-center font-bold text-gray-500">Log in to Trello</p>
+  <form>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      class="w-full rounded border-2 border-zinc-200 bg-zinc-50 p-2 text-sm font-thin text-zinc-100 focus:border-2 focus:border-blue-400 focus:bg-white focus:outline-0 focus:ring-0"
+      placeholder="Enter email"
+    />
+    <button
+      class="w-full rounded bg-[#5AAC44] py-3 text-center text-white hover:bg-[#61BD4F]"
+    >
+      Continue
+    </button>
+  </form>
+  <p class="text-center text-xs font-thin uppercase">OR</p>
+  <div class="">
+    <login-auth-button [text]="'Continue with Google'"></login-auth-button>
+  </div>
+  <hr />
+  <ul class="flex justify-center space-x-3">
+    <li>
+      <a class="text-sm font-thin text-blue-700" href="#">Can't log in?</a>
+    </li>
+    <li class="before:-ml-1 before:mr-2 before:content-['\2022']">
+      <a class="text-sm font-thin text-blue-700" href="#"
+        >Sign up for an account</a
+      >
+    </li>
+  </ul>
+  <ul class="flex justify-center space-x-3">
+    <li>
+      <a class="text-xs font-thin text-blue-700" href="#">Privacy policy</a>
+    </li>
+    <li class="before:-ml-1 before:mr-2 before:content-['\2022']">
+      <a class="text-xs font-thin text-blue-700" href="#">Terms of service</a>
+    </li>
+  </ul>
+  <hr />
+  <login-footer [links]="this.footerLinks"></login-footer>
+</div>
