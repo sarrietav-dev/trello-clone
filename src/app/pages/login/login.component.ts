@@ -16,4 +16,11 @@ export class LoginComponent {
     { text: 'Help' },
     { text: 'Cookie Settings' },
   ]
+
+  authButtons: { text: string, icon?: string, url?: string }[] = [
+    { text: 'Sign up with Google' },
+    { text: 'Sign up with Microsoft' },
+    { text: 'Sign up with Apple' },
+    { text: 'Sign up with Slack' },
+  ]
 }
