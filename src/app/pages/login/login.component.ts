@@ -17,10 +17,10 @@ export class LoginComponent {
     { text: 'Cookie Settings' },
   ]
 
-  authButtons: { text: string, icon?: string, url?: string }[] = [
-    { text: 'Sign up with Google' },
-    { text: 'Sign up with Microsoft' },
-    { text: 'Sign up with Apple' },
-    { text: 'Sign up with Slack' },
+  authButtons: { text: string, iconUrl: string, url?: string }[] = [
+    { text: 'Google', iconUrl: 'https://img.icons8.com/color/30/null/google-logo.png' },
+    { text: 'Microsoft', iconUrl: 'https://img.icons8.com/color/30/null/microsoft.png' },
+    { text: 'Apple', iconUrl: 'https://img.icons8.com/ios-glyphs/30/null/mac-os.png' },
+    { text: 'Slack', iconUrl: 'https://img.icons8.com/color/48/null/slack-new.png' },
   ]
 }
