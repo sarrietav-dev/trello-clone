@@ -1,5 +1,8 @@
 <button
-  class="w-full rounded py-2 text-center text-sm font-bold text-gray-500 shadow active:border-2 active:border-zinc-300 active:bg-zinc-100"
+  class="mb-3 flex w-full items-center justify-center rounded py-2 text-center text-sm font-bold text-gray-500 shadow active:border-2 active:border-zinc-300 active:bg-zinc-100 gap-2"
 >
-  {{ text }}
+  <span class="w-5"
+    ><img class="h-auto w-full" [src]="icon" alt="Company icon"
+  /></span>
+  <span> Sign up with {{ text }}</span>
 </button>
