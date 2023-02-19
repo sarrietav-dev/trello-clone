@@ -1,2 +1,36 @@
 <app-navbar></app-navbar>
-<p>boards works!</p>
+<div class="container mx-auto flex w-full gap-5 pt-10">
+  <aside class="flex-grow-[1] basis-20 px-5">
+    <ul>
+      <li *ngFor="let link of links">
+        <a
+          class="group flex w-full items-baseline gap-3 rounded px-3 py-1 hover:bg-sky-100"
+        >
+          <fa-icon
+            [icon]="link.icon"
+            class="text-slate-800 group-hover:text-cyan-800"
+          ></fa-icon>
+          <span
+            class="text-lg font-bold text-slate-800 group-hover:text-cyan-800"
+            >{{ link.title }}</span
+          >
+        </a>
+      </li>
+    </ul>
+  </aside>
+  <main class="flex-grow-[5] space-y-5">
+    <h1 class="flex items-baseline gap-3">
+      <fa-icon [icon]="faClock" class="text-3xl text-slate-800"></fa-icon>
+      <span class="text-xl font-bold text-slate-800">Reciently viewed</span>
+    </h1>
+    <div class="grid grid-cols-4 gap-4">
+      <article
+        *ngFor="let board of boards"
+        class="h-28 w-full rounded p-2 font-bold text-white hover:opacity-90"
+        [ngStyle]="{ backgroundColor: board.color }"
+      >
+        <h2>{{ board.title }}</h2>
+      </article>
+    </div>
+  </main>
+</div>
