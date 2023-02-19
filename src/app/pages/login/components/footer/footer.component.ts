@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-  @Input() links: { text: string, url?: string }[] = [];
+  @Input() links: { text: string; url?: string }[] = [];
 }

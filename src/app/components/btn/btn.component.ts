@@ -2,17 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-btn',
-  templateUrl: './btn.component.html'
+  templateUrl: './btn.component.html',
 })
 export class BtnComponent implements OnInit {
-
   @Input() typeBtn: 'button' | 'reset' | 'submit' = 'button';
   @Input() color = 'primary';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get colors() {
     return {
@@ -27,5 +25,4 @@ export class BtnComponent implements OnInit {
       'focus:ring-red-300': this.color === 'red',
     };
   }
-
 }
