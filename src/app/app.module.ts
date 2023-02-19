@@ -8,10 +8,11 @@ import { LoginModule } from './pages/login/login.module';
 import { BoardsComponent } from './pages/boards/boards.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BtnComponent } from './components/btn/btn.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent, BoardsComponent, NavbarComponent, BtnComponent],
-  imports: [BrowserModule, AppRoutingModule, LoginModule, OverlayModule],
+  imports: [BrowserModule, AppRoutingModule, LoginModule, OverlayModule, FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent],
 })
