@@ -14,6 +14,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { sky, rose, green, yellow } from 'tailwindcss/colors';
 
+type Accordion = {
+  label: string;
+  items?: Accordion[];
+};
+
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html',
@@ -29,6 +34,39 @@ export class BoardsComponent {
   faBorderAll = faBorderAll;
   faUsers = faUsers;
   faGear = faGear;
+
+  items: Accordion[] = [
+    {
+      label: 'Item 1',
+      items: [
+        {
+          label: 'Subitem 1.1',
+        },
+      ],
+    },
+    {
+      label: 'Item 2',
+      items: [
+        {
+          label: 'Subitem 2.1',
+        },
+      ],
+    },
+    {
+      label: 'Item 3',
+      items: [
+        {
+          label: 'Subitem 3.1',
+        },
+        {
+          label: 'Subitem 3.2',
+        },
+        {
+          label: 'Subitem 3.3',
+        },
+      ],
+    },
+  ];
 
   boards: { title: string; color: string }[] = [
     {
@@ -48,6 +86,7 @@ export class BoardsComponent {
       color: yellow[600],
     },
   ];
+
   links: { icon: IconDefinition; title: string }[] = [
     {
       icon: faTrello,

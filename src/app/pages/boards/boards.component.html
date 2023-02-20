@@ -61,6 +61,22 @@
         </div>
       </cdk-accordion-item>
     </cdk-accordion>
+
+    <cdk-accordion>
+      <cdk-accordion-item
+        #accordionItem="cdkAccordionItem"
+        *ngFor="let item of items"
+      >
+        <button type="button" (click)="accordionItem.toggle()">
+          {{ item.label }}
+        </button>
+        <div [style.display]="accordionItem.expanded ? '' : 'none'">
+          <ul *ngIf="item.items">
+            <li *ngFor="let subItem of item.items">{{ subItem.label }}</li>
+          </ul>
+        </div>
+      </cdk-accordion-item>
+    </cdk-accordion>
   </aside>
   <main class="flex-grow-[5] space-y-5">
     <h1 class="flex items-baseline gap-3">
