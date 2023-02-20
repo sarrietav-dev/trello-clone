@@ -34,10 +34,41 @@
             </div>
           </div>
         </div>
-        <button class="shrink-0" (click)="addNewColumn()">
-          Add new column
-        </button>
+        <form
+          *ngIf="isAddingNewColumn; else addColumn"
+          (submit)="addNewColumn($event)"
+          class="w-72 space-y-1 rounded bg-gray-200 p-1"
+        >
+          <input
+            type="text"
+            name="columnName"
+            id="columnName"
+            class="w-full rounded focus:ring-1 focus:ring-sky-600"
+            placeholder="Enter list title..."
+            [formControl]="columnName"
+          />
+          <div class="space-x-4">
+            <button
+              type="submit"
+              class="rounded bg-sky-600 px-4 py-1.5 text-white"
+            >
+              Add list
+            </button>
+            <button (click)="this.isAddingNewColumn = !isAddingNewColumn">
+              <fa-icon class="text-sky-800" [icon]="faX"></fa-icon>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </div>
+<ng-template #addColumn>
+  <button
+    class="flex shrink-0 gap-3 rounded bg-sky-400/70 px-5 py-3 text-white transition hover:bg-sky-400"
+    (click)="this.isAddingNewColumn = !isAddingNewColumn"
+  >
+    <fa-icon [icon]="faPlus"></fa-icon>
+    Add another list
+  </button>
+</ng-template>

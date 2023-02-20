@@ -4,6 +4,8 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { faCross, faPlus, faX } from '@fortawesome/free-solid-svg-icons';
 import { Column, Todo } from 'src/app/models/todo.model';
 
 @Component({
@@ -24,6 +26,11 @@ import { Column, Todo } from 'src/app/models/todo.model';
   ],
 })
 export class BoardComponent {
+  faPlus = faPlus;
+  faX = faX;
+  isAddingNewColumn = true;
+  columnName = new FormControl('');
+
   todos: Todo[] = [
     {
       id: '1',
@@ -75,7 +82,9 @@ export class BoardComponent {
       );
   }
 
-  addNewColumn() {
-    this.columns.push({ title: 'New', todo: [] });
+  addNewColumn(event: SubmitEvent) {
+    event.preventDefault();
+    this.columns.push({ title: this.columnName.value ?? '', todo: [] });
+    this.columnName.setValue('');
   }
 }
