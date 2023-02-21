@@ -5,7 +5,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { faCross, faPlus, faX } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faX } from '@fortawesome/free-solid-svg-icons';
+import { BehaviorSubject } from 'rxjs';
 import { Column, Todo } from 'src/app/models/todo.model';
 
 @Component({
@@ -28,8 +29,11 @@ import { Column, Todo } from 'src/app/models/todo.model';
 export class BoardComponent {
   faPlus = faPlus;
   faX = faX;
-  isAddingNewColumn = true;
-  columnName = new FormControl('');
+  isAddingNewColumn = false;
+  columnsInsertingCards: string[] = [];
+  newColumn = new FormControl('');
+  newTask = new FormControl('');
+  idCount = 4;
 
   todos: Todo[] = [
     {
@@ -51,20 +55,25 @@ export class BoardComponent {
     },
   ];
 
-  columns: Column[] = [
+  columnSubject = new BehaviorSubject<Column[]>([
     {
+      id: '1',
       title: 'Todo',
       todo: [...this.todos],
     },
     {
+      id: '2',
       title: 'Doing',
       todo: [...this.doing],
     },
     {
+      id: '3',
       title: 'Done',
       todo: [...this.done],
     },
-  ];
+  ]);
+
+  columns: Column[] = this.columnSubject.getValue();
 
   drop($event: CdkDragDrop<Todo[]>) {
     if ($event.previousContainer === $event.container)
@@ -84,7 +93,44 @@ export class BoardComponent {
 
   addNewColumn(event: SubmitEvent) {
     event.preventDefault();
-    this.columns.push({ title: this.columnName.value ?? '', todo: [] });
-    this.columnName.setValue('');
+    this.columns.push({
+      title: this.newColumn.value ?? '',
+      todo: [],
+      id: (this.idCount++).toString(),
+    });
+    this.newColumn.setValue('');
+  }
+
+  addCard(id: string) {
+    const selectedColumn = this.columns.filter((column) => column.id === id);
+    if (selectedColumn.length === 0) return;
+
+    selectedColumn[0].todo.push({ id: '', title: this.newTask.value ?? '' });
+
+    const selectedColumnIndex = this.columns.indexOf(selectedColumn[0]);
+
+    const newColumns = [...this.columns];
+    newColumns[selectedColumnIndex] = selectedColumn[0];
+
+    this.columnSubject.next(newColumns);
+
+    this.removeColumnFromInsertingCards(id);
+
+    this.newTask.setValue('');
+  }
+
+  addColumnToInsertingCards(id: string) {
+    if (this.columnsInsertingCards.some((columnId) => columnId === id)) return;
+    this.columnsInsertingCards.push(id);
+  }
+
+  removeColumnFromInsertingCards(id: string) {
+    this.columnsInsertingCards = this.columnsInsertingCards.filter(
+      (columnId) => columnId !== id
+    );
+  }
+
+  isColumnInsertingCards(id: string) {
+    return this.columnsInsertingCards.some((columnId) => columnId === id);
   }
 }
