@@ -1,3 +1,4 @@
+import { Dialog } from '@angular/cdk/dialog';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -6,6 +7,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { faPlus, faX } from '@fortawesome/free-solid-svg-icons';
+import { TodoDialogComponent } from 'src/app/components/todo-dialog/todo-dialog.component';
 import { Column, Todo } from 'src/app/models/todo.model';
 import { TaskService } from 'src/app/service/task/task.service';
 
@@ -27,7 +29,7 @@ import { TaskService } from 'src/app/service/task/task.service';
   ],
 })
 export class BoardComponent implements OnInit {
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private dialog: Dialog) {}
 
   faPlus = faPlus;
   faX = faX;
@@ -44,6 +46,14 @@ export class BoardComponent implements OnInit {
     this.taskService.columnSubject.subscribe(
       (columns) => (this.columns = columns)
     );
+  }
+
+  openDialog() {
+    this.dialog.open(TodoDialogComponent, {
+      minWidth: '300px',
+      maxWidth: '50%',
+      autoFocus: false
+    })
   }
 
   drop($event: CdkDragDrop<Todo[]>) {
