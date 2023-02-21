@@ -48,7 +48,7 @@
             <button
               *ngIf="isColumnInsertingCards(column.id)"
               class="rounded bg-sky-600 px-3 py-1.5 text-white"
-              (click)="addCard(column.id)"
+              (click)="onAddTask(column.id)"
             >
               Add card
             </button>
@@ -70,7 +70,7 @@
         </div>
         <form
           *ngIf="isAddingNewColumn; else addColumn"
-          (submit)="addNewColumn($event)"
+          (submit)="onAddColumn($event)"
           class="w-72 space-y-1 rounded bg-gray-200 p-1"
         >
           <input

@@ -1,15 +1,13 @@
-// TODO: Decouple columns and tasks login into its own service.
-
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { faPlus, faX } from '@fortawesome/free-solid-svg-icons';
-import { BehaviorSubject } from 'rxjs';
 import { Column, Todo } from 'src/app/models/todo.model';
+import { TaskService } from 'src/app/service/task/task.service';
 
 @Component({
   selector: 'app-board',
@@ -28,54 +26,25 @@ import { Column, Todo } from 'src/app/models/todo.model';
     `,
   ],
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit {
+  constructor(private taskService: TaskService) {}
+
   faPlus = faPlus;
   faX = faX;
+
   isAddingNewColumn = false;
   columnsInsertingCards: string[] = [];
+
   newColumn = new FormControl('');
   newTask = new FormControl('');
-  idCount = 4;
 
-  todos: Todo[] = [
-    {
-      id: '1',
-      title: 'Todo 1',
-    },
-    {
-      id: '2',
-      title: 'Todo 2',
-    },
-  ];
+  columns: Column[] = [];
 
-  doing: Todo[] = [{ id: '3', title: 'Todo 3' }];
-
-  done: Todo[] = [
-    {
-      id: '4',
-      title: 'Todo 4',
-    },
-  ];
-
-  columnSubject = new BehaviorSubject<Column[]>([
-    {
-      id: '1',
-      title: 'Todo',
-      todo: [...this.todos],
-    },
-    {
-      id: '2',
-      title: 'Doing',
-      todo: [...this.doing],
-    },
-    {
-      id: '3',
-      title: 'Done',
-      todo: [...this.done],
-    },
-  ]);
-
-  columns: Column[] = this.columnSubject.getValue();
+  ngOnInit(): void {
+    this.taskService.columnSubject.subscribe(
+      (columns) => (this.columns = columns)
+    );
+  }
 
   drop($event: CdkDragDrop<Todo[]>) {
     if ($event.previousContainer === $event.container)
@@ -93,32 +62,20 @@ export class BoardComponent {
       );
   }
 
-  addNewColumn(event: SubmitEvent) {
-    event.preventDefault();
-    this.columns.push({
-      title: this.newColumn.value ?? '',
-      todo: [],
-      id: (this.idCount++).toString(),
-    });
-    this.newColumn.setValue('');
-  }
+  onAddTask(columnId: string) {
+    this.taskService.addTask(columnId, this.newTask.value ?? '');
 
-  addCard(id: string) {
-    const selectedColumn = this.columns.filter((column) => column.id === id);
-    if (selectedColumn.length === 0) return;
-
-    selectedColumn[0].todo.push({ id: '', title: this.newTask.value ?? '' });
-
-    const selectedColumnIndex = this.columns.indexOf(selectedColumn[0]);
-
-    const newColumns = [...this.columns];
-    newColumns[selectedColumnIndex] = selectedColumn[0];
-
-    this.columnSubject.next(newColumns);
-
-    this.removeColumnFromInsertingCards(id);
+    this.removeColumnFromInsertingCards(columnId);
 
     this.newTask.setValue('');
+  }
+
+  onAddColumn($event: SubmitEvent) {
+    $event.preventDefault();
+
+    this.taskService.addNewColumn(this.newColumn.value ?? '');
+
+    this.newColumn.setValue('');
   }
 
   addColumnToInsertingCards(id: string) {
