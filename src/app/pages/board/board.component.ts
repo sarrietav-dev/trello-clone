@@ -1,3 +1,5 @@
+// TODO: Decouple columns and tasks login into its own service.
+
 import {
   CdkDragDrop,
   moveItemInArray,
