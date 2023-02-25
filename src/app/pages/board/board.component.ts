@@ -48,11 +48,17 @@ export class BoardComponent implements OnInit {
     );
   }
 
-  openDialog() {
-    this.dialog.open(TodoDialogComponent, {
+  openDialog(todo: Todo) {
+    const dialogRef = this.dialog.open(TodoDialogComponent, {
       minWidth: '300px',
       maxWidth: '50%',
-      autoFocus: false
+      data: {
+        todo: todo
+      }
+    })
+
+    dialogRef.closed.subscribe((value) => {
+      console.log(value)
     })
   }
 

@@ -1,11 +1,11 @@
-<div class="relative rounded bg-gray-100 p-6 shadow">
+<div class="relative max-w-3xl rounded bg-gray-100 p-6 shadow">
   <button type="button" class="absolute top-3 right-3 p-2 focus:outline-none">
     <fa-icon [icon]="faClose"></fa-icon>
   </button>
   <div class="mb-5 flex space-x-2">
     <fa-icon class="text-gray-800" [icon]="faCheckToSlot"></fa-icon>
     <div class="flex flex-col">
-      <h3 class="text-lg font-semibold text-gray-800">Task 1</h3>
+      <h3 class="text-lg font-semibold text-gray-800">{{ todo.title }}</h3>
       <p class="text-sm text-gray-500">in list ToDo</p>
     </div>
   </div>
@@ -20,6 +20,10 @@
           similique rerum minus excepturi sed vel, id voluptatibus repellendus
           numquam quod.
         </p>
+        <div class="flex space-x-2">
+          <button type="button" (click)="closeWithResponse(true)">Si</button>
+          <button type="button" (click)="closeWithResponse(false)">No</button>
+        </div>
       </div>
     </div>
     <div class="flex flex-auto flex-col space-y-2">
