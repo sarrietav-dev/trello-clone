@@ -15,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { BtnComponent } from './components/btn/btn.component';
 import { BoardComponent } from './pages/board/board.component';
 import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.component';
+import { ScrollComponent } from './pages/scroll/scroll.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.compon
     BtnComponent,
     BoardComponent,
     TodoDialogComponent,
+    ScrollComponent,
   ],
   imports: [
     BrowserModule,
